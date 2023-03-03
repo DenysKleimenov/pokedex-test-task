@@ -15,7 +15,6 @@ Source of information about pokemons.
 - HTML/CSS
 
 
-
 ## Bonus features
 
 - Adaptive styling

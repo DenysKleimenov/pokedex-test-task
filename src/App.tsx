@@ -2,6 +2,7 @@ import {
   Box,
   Container,
 } from '@mui/material';
+
 import { PokemonsList } from './components/PokemonsList';
 
 const App: React.FC = () => (
