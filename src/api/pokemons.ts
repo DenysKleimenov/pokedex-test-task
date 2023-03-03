@@ -1,5 +1,5 @@
 import { PokemonResponse } from '../types/Pokemon/PokemonResponse';
-import { PokemonInfo } from '../types/Pokemon/PokemonInfo';
+import { PokemonData } from '../types/Pokemon/PokemonData';
 import { client } from '../utils/fetchClient';
 
 export const getPokemonsWithLimit = async (limit: number) => {
@@ -9,7 +9,7 @@ export const getPokemonsWithLimit = async (limit: number) => {
 };
 
 export const getPokemonInfo = async (name: string) => {
-  const pokemonInfo = await client.get<PokemonInfo>(`pokemon/${name}`);
+  const pokemonInfo = await client.get<PokemonData>(`pokemon/${name}`);
 
   return pokemonInfo || null;
 };
