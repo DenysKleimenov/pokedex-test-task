@@ -16,18 +16,44 @@ interface Props {
   setSelectedPokemon: (pokemonData: PokemonData) => void;
 }
 
-const getButtonColor = (type: { name: string; url: string }) => {
+export const getButtonColor = (type: { name: string; url: string }) => {
   switch (type.name) {
     case 'grass':
-      return '#7dd87d';
+      return '#74CB48';
+    case 'ground':
+      return '#DEC16B';
+    case 'ice':
+      return '#9AD6DF';
     case 'poison':
-      return '#5e63b6';
+      return '#A43E9E';
+    case 'psychic':
+      return '#FB5584';
+    case 'rock':
+      return '#B69E31';
+    case 'steel':
+      return '#B7B9D0';
     case 'fire':
-      return '#ff6464';
+      return '#F57D31';
     case 'electric':
       return '#f5dd7b';
     case 'water':
-      return '#00bbf0';
+      return '#6493EB';
+    case 'bug':
+      return '#A7B723';
+    case 'dark':
+      return '#75574C';
+    case 'dragon':
+      return '#7037FF';
+    case 'fairy':
+      return '#E69EAC';
+    case 'fighting':
+      return '#C12239';
+    case 'flying':
+      return '#A891EC';
+    case 'ghost':
+      return '#70559B';
+    case 'normal':
+      return '#AAA67F';
     default:
       return '#66bfbf';
   }
@@ -67,13 +93,19 @@ export const PokemonInfo: React.FC<Props> = ({
           xs: '70px',
         },
         textAlign: 'center',
-        border: '1px solid #000',
+        backgroundColor: '#FFCC00',
+        border: '1px solid #375CA9',
+        boxShadow: '0px 2px 6px 3px rgba(0, 117, 190, 0.4)',
+        borderRadius: '10px',
+        transition: 'transform 0.3s',
+        '&:hover': {
+          md: {
+            transform: 'scale(1.1)',
+          },
+        },
       }}
     >
-      <a
-        href="#selected_pokemon"
-        onClick={handleClick}
-      >
+      <a href="#selected_pokemon" onClick={handleClick}>
         <CardMedia
           sx={{
             height: {
@@ -89,9 +121,10 @@ export const PokemonInfo: React.FC<Props> = ({
             border: '1px solid black',
             mb: '10px',
             cursor: 'pointer',
+            backgroundColor: '#fff',
             '&:hover': {
               md: {
-                backgroundColor: 'lightskyblue',
+                backgroundColor: '#0075BE',
               },
             },
             transition: 'background-color 0.3s',

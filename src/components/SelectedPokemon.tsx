@@ -2,26 +2,38 @@ import {
   Card, CardContent, CardMedia, Typography,
 } from '@mui/material';
 import { PokemonData } from '../types/Pokemon/PokemonData';
+import { getButtonColor } from './PokemonInfo';
 
 interface Props {
   pokemon: PokemonData;
 }
 
+const statFields = [
+  'Type',
+  'Attack',
+  'Defense',
+  'HP',
+  'SP Attack',
+  'SP Defense',
+  'Speed',
+  'Weight',
+  'Total moves',
+];
+
+const formIdDigits = (id: number) => {
+  if (id >= 100) {
+    return id;
+  }
+
+  return id < 10 ? `00${id}` : `0${id}`;
+};
+
 export const SelectedPokemonInfo: React.FC<Props> = ({ pokemon }) => {
-  const { stats, weight, moves } = pokemon;
+  const {
+    stats, weight, moves, id,
+  } = pokemon;
   const { name } = pokemon.types[0].type;
   const totalMoves = moves.length;
-  const statFields = [
-    'Type',
-    'Attack',
-    'Defense',
-    'HP',
-    'SP Attack',
-    'SP Defense',
-    'Speed',
-    'Weight',
-    'Total moves',
-  ];
   const statValues = stats
     .sort((a, b) => {
       const { name: firstName } = a.stat;
@@ -45,9 +57,7 @@ export const SelectedPokemonInfo: React.FC<Props> = ({ pokemon }) => {
           md: 0,
         },
         boxShadow: {
-          xs: '-1px 4px 19px 4px rgba(255, 1, 5, 0.6)',
-          // eslint-disable-next-line max-len
-          md: '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)',
+          xs: '-1px -1px 15px rgba(120, 106, 106, 0.5)',
         },
         position: {
           md: 'fixed',
@@ -62,8 +72,10 @@ export const SelectedPokemonInfo: React.FC<Props> = ({ pokemon }) => {
           xl: '24%',
         },
         border: {
-          md: '1px solid black',
+          xs: '1px solid black',
         },
+        borderRadius: '10px',
+        backgroundColor: getButtonColor(pokemon.types[0].type),
       }}
       id="selected_pokemon"
     >
@@ -73,18 +85,25 @@ export const SelectedPokemonInfo: React.FC<Props> = ({ pokemon }) => {
             xs: 200,
           },
           width: {
-            xs: 220,
+            xs: 222,
           },
-          border: '1px solid black',
           mb: '10px',
           cursor: 'pointer',
           transition: 'background-color 0.3s',
+          borderRadius: '5px',
         }}
         // eslint-disable-next-line max-len
         image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
         title={pokemon.name}
       />
-      <CardContent sx={{ padding: 0 }}>
+      <CardContent
+        sx={{
+          padding: 0,
+          bgcolor: '#fff',
+          borderRadius: '8px',
+          pt: '10px',
+        }}
+      >
         <Typography
           gutterBottom
           variant="h5"
@@ -95,21 +114,27 @@ export const SelectedPokemonInfo: React.FC<Props> = ({ pokemon }) => {
               xs: '26px',
               md: '22px',
             },
-            fontWeight: 500,
+            fontWeight: 600,
             mb: '5px',
           }}
         >
-          {pokemon.name}
+          {`${pokemon.name} #${formIdDigits(id)}`}
         </Typography>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <table
+          style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            fontWeight: 500,
+          }}
+        >
           <tbody>
             {statFields.map((field, index) => (
               <tr key={field}>
-                <td style={{ border: '1px solid black' }}>{field}</td>
+                <td style={{ border: '1px solid transparent' }}>{field}</td>
                 <td
                   style={{
                     textTransform: 'capitalize',
-                    border: '1px solid black',
+                    border: '1px solid transparent',
                   }}
                 >
                   {fieldsValues[index]}
