@@ -14,6 +14,7 @@ export const PokemonsList: React.FC = () => {
     null,
   );
   const pokemonsLimit = useRef(12);
+  const [filter, setFilter] = useState('');
 
   const getPokemons = async () => {
     try {
@@ -85,6 +86,8 @@ export const PokemonsList: React.FC = () => {
             name={pokemon.name}
             id={index + 1}
             setSelectedPokemon={setSelectedPokemon}
+            filter={filter}
+            setFilter={setFilter}
           />
         ))}
         {pokemons.length > 0 && (

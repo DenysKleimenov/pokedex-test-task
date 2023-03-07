@@ -18,7 +18,7 @@ Source of information about pokemons.
 ## Bonus features
 
 - Adaptive styling
-
+- Filtering visible pokemons by type
 
 
 ## Run Locally

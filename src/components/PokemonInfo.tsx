@@ -14,6 +14,8 @@ interface Props {
   id: number;
   name: string;
   setSelectedPokemon: (pokemonData: PokemonData) => void;
+  filter: string;
+  setFilter: (pokemonType: string) => void;
 }
 
 export const getButtonColor = (type: { name: string; url: string }) => {
@@ -63,8 +65,11 @@ export const PokemonInfo: React.FC<Props> = ({
   id,
   name,
   setSelectedPokemon,
+  filter,
+  setFilter,
 }) => {
   const [pokemonData, setPokemonData] = useState<PokemonData | null>(null);
+  const types = pokemonData?.types;
 
   useEffect(() => {
     const getPokemonData = async () => {
@@ -85,7 +90,8 @@ export const PokemonInfo: React.FC<Props> = ({
     }
   };
 
-  return (
+  // eslint-disable-next-line max-len
+  return types?.some((pokemonType) => pokemonType.type.name.includes(filter)) ? (
     <Card
       sx={{
         padding: '10px',
@@ -171,6 +177,7 @@ export const PokemonInfo: React.FC<Props> = ({
               key={slot}
               size="small"
               variant="contained"
+              onClick={() => setFilter(type.name)}
               sx={{
                 backgroundColor: getButtonColor(type),
                 color: '#141010',
@@ -197,5 +204,7 @@ export const PokemonInfo: React.FC<Props> = ({
         })}
       </CardActions>
     </Card>
+  ) : (
+    null
   );
 };
